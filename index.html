@@ -1,48 +1,386 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mi Proyecto</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f4ff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CalmaMente</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 40px 60px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f0f4f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
 
-    h1 {
-      font-size: 2.5rem;
-      color: #3b82f6;
-      margin-bottom: 8px;
-    }
+  .phone {
+    width: 390px;
+    min-height: 844px;
+    background: #fefefe;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+  }
 
-    p {
-      color: #6b7280;
-      font-size: 1.1rem;
-    }
-  </style>
+  /* Hero */
+  .hero {
+    background: linear-gradient(180deg, #c8e8e0 0%, #b5d9d4 30%, #d4eae5 60%, #e8f0eb 100%);
+    padding: 50px 24px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px; right: -20px; bottom: -20px;
+    background: 
+      radial-gradient(ellipse 80% 40% at 50% 20%, rgba(255,255,200,0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 60% at 80% 80%, rgba(200,230,255,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-icon {
+    font-size: 36px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .logo-text {
+    font-size: 30px;
+    font-weight: 800;
+    color: #2d7a6e;
+    letter-spacing: -0.5px;
+  }
+
+  .tagline {
+    font-size: 16px;
+    font-weight: 700;
+    color: #3a5a55;
+    margin-top: 14px;
+    margin-bottom: 22px;
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, #3a9e8e, #2d7a6e);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 40px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(45,122,110,0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+    width: 85%;
+    justify-content: center;
+  }
+
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(45,122,110,0.5); }
+  .btn-start:active { transform: scale(0.97); }
+
+  /* Cards Section */
+  .section {
+    padding: 22px 18px 10px;
+    background: #faf9f6;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2a2a2a;
+    margin-bottom: 14px;
+  }
+
+  .section-title span {
+    font-weight: 400;
+    color: #666;
+  }
+
+  .card {
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  }
+
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .card:active { transform: scale(0.98); }
+
+  .card-sleep { background: linear-gradient(135deg, #1a2a6e 0%, #4a3aa0 50%, #b0a0e0 100%); }
+  .card-anxiety { background: linear-gradient(135deg, #e07020 0%, #f0a040 60%, #f8d080 100%); }
+  .card-focus { background: linear-gradient(135deg, #20a090 0%, #40c0a0 60%, #80e0c0 100%); }
+  .card-gratitude { background: linear-gradient(135deg, #e06040 0%, #f09040 60%, #f8d090 100%); }
+
+  .card-icon {
+    width: 70px;
+    height: 70px;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+
+  .card-content {
+    flex: 1;
+    padding: 0 10px;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .card-duration {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  .card-arrow {
+    color: rgba(255,255,255,0.8);
+    font-size: 20px;
+    margin-right: 16px;
+    font-weight: 700;
+  }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0 20px;
+    background: white;
+    border-top: 1px solid #eee;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    cursor: pointer;
+  }
+
+  .nav-item.active { color: #2d7a6e; }
+  .nav-item span { font-size: 22px; }
+
+  /* LOADING OVERLAY */
+  .loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 50, 45, 0.88);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    border-radius: 44px;
+  }
+
+  .loading-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .loading-box {
+    background: linear-gradient(160deg, #1e5f54, #2d7a6e);
+    border-radius: 28px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .loading-emoji {
+    font-size: 52px;
+    margin-bottom: 16px;
+    animation: breathe 2s ease-in-out infinite;
+    display: block;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .loading-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .loading-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 22px;
+  }
+
+  .dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .loading-close {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .loading-close:hover { background: rgba(255,255,255,0.25); }
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <!-- 👇 CAMBIA ESTE TEXTO POR EL NOMBRE DE TU PROYECTO -->
-    <h1>Mi Proyecto</h1>
-    <p>Hecho por: Tu Nombre</p>
+<div class="phone">
+
+  <!-- Hero -->
+  <div class="hero">
+    <span class="logo-icon">🌿</span>
+    <div class="logo-text">CalmaMente</div>
+    <div class="tagline">Respira, todo estará bien.</div>
+    <button class="btn-start" onclick="showLoading('Iniciando meditación', '🧘', 'Prepara tu mente y respira...')">
+      ▶️ Iniciar meditación
+    </button>
   </div>
+
+  <!-- Cards -->
+  <div class="section">
+    <div class="section-title">Empieza con una <span>meditación</span></div>
+
+    <div class="card card-sleep">
+      <div class="card-icon">🌙</div>
+      <div class="card-content">
+        <div class="card-title">Meditación<br>para dormir</div>
+        <div class="card-duration">20 min</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </div>
+
+    <div class="card card-anxiety" onclick="showLoading('Reducir ansiedad', '🌸', 'Respira profundo, todo pasará...')">
+      <div class="card-icon">🧘‍♀️</div>
+      <div class="card-content">
+        <div class="card-title">Reducir ansiedad</div>
+        <div class="card-duration">15 min</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </div>
+
+    <div class="card card-focus" onclick="showLoading('Concentración', '🎯', 'Enfoca tu mente en el presente...')">
+      <div class="card-icon">🎯</div>
+      <div class="card-content">
+        <div class="card-title">Concentración</div>
+        <div class="card-duration">10 min</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </div>
+
+    <div class="card card-gratitude">
+      <div class="card-icon">🌅</div>
+      <div class="card-content">
+        <div class="card-title">Gratitud</div>
+        <div class="card-duration">5 min</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active"><span>🏠</span>Inicio</div>
+    <div class="nav-item"><span>🔍</span>Explorar</div>
+    <div class="nav-item"><span>🤍</span>Favoritos</div>
+    <div class="nav-item"><span>👤</span>Perfil</div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-box">
+      <span class="loading-emoji" id="loadingEmoji">🧘</span>
+      <div class="loading-title" id="loadingTitle">Cargando...</div>
+      <div class="loading-sub" id="loadingSub">Preparando tu sesión</div>
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="loading-close" onclick="hideLoading()">Cancelar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showLoading(title, emoji, subtitle) {
+    document.getElementById('loadingTitle').textContent = title;
+    document.getElementById('loadingEmoji').textContent = emoji;
+    document.getElementById('loadingSub').textContent = subtitle;
+    document.getElementById('loadingOverlay').classList.add('visible');
+  }
+
+  function hideLoading() {
+    document.getElementById('loadingOverlay').classList.remove('visible');
+  }
+</script>
 
 </body>
 </html>
